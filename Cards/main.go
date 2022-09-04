@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
 
@@ -14,5 +17,20 @@ func main() {
 	remainingCards.print()
 
 	fmt.Println(hand.toString())
+	err := hand.saveToFile("my_cards")
+	if err != nil {
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	}
+
+	newdeck, err := newDeckFromFile("my_cards")
+	if err != nil {
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	}
+	newdeck.print()
+
+	cards.shuffle()
+	cards.print()
 
 }
